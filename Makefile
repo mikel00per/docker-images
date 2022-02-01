@@ -2,8 +2,11 @@ include .env
 
 all: build-all push-all
 
-build-all: build-nginx build-php
-push-all: push-nginx push-php
+build-all:
+	docker-compose --env-file .env build --no-cache
+
+push-all:
+	docker-compose push
 
 build-apache:
 	docker-compose --env-file .env build --no-cache apache
@@ -18,19 +21,13 @@ build-php:
 	docker-compose --env-file .env build --no-cache php
 
 push-apache:
-	docker tag containers_apache mikel00per/apache-alpine:${VERSION_TAG}
-	docker push mikel00per/apache-alpine:${VERSION_TAG}
+	docker-compose push apache
 
 push-mysql:
-	docker tag containers_mysql mikel00per/mysql-alpine:${VERSION_TAG}
-	docker push mikel00per/mysql-alpine:${VERSION_TAG}
+	docker-compose push nginx
 
 push-nginx:
-	docker tag containers_nginx mikel00per/nginx-alpine:${VERSION_TAG}
-	docker push mikel00per/nginx-alpine:${VERSION_TAG}
+	docker-compose push nginx
 
 push-php:
-	docker tag containers_php mikel00per/php-alpine:${VERSION_TAG}
-	docker push mikel00per/php-alpine:${VERSION_TAG}
-
-
+	docker-compose push php
