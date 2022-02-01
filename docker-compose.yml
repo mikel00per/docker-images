@@ -1,0 +1,87 @@
+version: "3.9"
+
+services:
+  apache:
+    env_file: .env
+    hostname: ${APACHE_NAME}
+    container_name: ${APACHE_NAME}
+    restart: 'always'
+    build:
+      context: ${APACHE_CONTEXT}
+      args:
+        APACHE_VERSION: "${APACHE_VERSION}"
+        APACHE_CONFIG_TARGET: "${APACHE_CONFIG_TARGET}"
+        APACHE_CONFIG_SOURCE: "${APACHE_CONFIG_SOURCE}"
+        APACHE_CONFIG_INCLUDE: "${APACHE_CONFIG_INCLUDE}"
+      labels:
+        - "co.elastic.logs/enabled=true"
+        - "co.elastic.logs/module=apache"
+        - "co.elastic.logs/fileset.stdout=access"
+        - "co.elastic.logs/fileset.stderr=error"
+        - "co.elastic.metrics/module=apache"
+        - "co.elastic.metrics/metricsets=status"
+        - "co.elastic.metrics/hosts=http://127.0.0.1/server-status"
+        - "co.elastic.metrics/period=10s"
+    ports:
+      - ${APACHE_HTTP_PORT}:${APACHE_HTTP_PORT}
+      - ${APACHE_HTTPS_PORT}:${APACHE_HTTPS_PORT}
+    environment:
+      APACHE_CONFIG_TARGET: ${APACHE_CONFIG_TARGET}
+      APACHE_CONFIG_INCLUDE: ${APACHE_CONFIG_INCLUDE}
+
+  mysql:
+    hostname: ${MYSQL_NAME}
+    container_name: ${MYSQL_NAME}
+    restart: 'always'
+    security_opt:
+      - seccomp:unconfined
+    build:
+      context: ${MYSQL_CONTEXT}
+      args:
+        MYSQL_VERSION: ${MYSQL_VERSION}
+        MYSQL_CONFIG_SOURCE: ${MYSQL_CONFIG_SOURCE}
+        MYSQL_CONFIG_TARGET: ${MYSQL_CONFIG_TARGET}
+      labels:
+        - "co.elastic.logs/enabled=true"
+        - "co.elastic.logs/module=mysql"
+        - "co.elastic.logs/fileset.stdout=slowlog"
+        - "co.elastic.logs/fileset.stderr=error"
+        - "co.elastic.metrics/module=mysql"
+        - "co.elastic.metrics/metricsets=status"
+        - "co.elastic.metrics/hosts=root:secret@tcp(127.0.0.1:3306)/"
+        - "co.elastic.metrics/period=10s"
+    ports:
+      - ${MYSQL_PORT}:${MYSQL_PORT}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
+  nginx:
+    hostname: ${NGINX_NAME}
+    container_name: ${NGINX_NAME}
+    restart: 'always'
+    build:
+      context: ${NGINX_CONTEXT}
+      args:
+        NGINX_VERSION: ${NGINX_VERSION}
+        NGINX_CONFIG_SOURCE: ${NGINX_CONFIG_SOURCE}
+        NGINX_CONFIG_TARGET: ${NGINX_CONFIG_TARGET}
+    ports:
+      - ${NGINX_PORT}:${NGINX_PORT}
+    environment:
+      NGINX_PORT: ${NGINX_PORT}
+      PHP_PORT: ${PHP_PORT}
+  php:
+    hostname: ${PHP_NAME}
+    container_name: ${PHP_NAME}
+    restart: 'always'
+    build:
+      context: ${PHP_CONTEXT}
+      args:
+        PHP_VERSION: ${PHP_VERSION}
+        PHP_CONFIG_SOURCE: ${PHP_CONFIG_SOURCE}
+        PHP_CONFIG_TARGET: ${PHP_CONFIG_TARGET}
+    ports:
+      - ${PHP_PORT}:${PHP_PORT}
