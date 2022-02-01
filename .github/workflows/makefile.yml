@@ -1,0 +1,24 @@
+name: Build and push images
+
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Config environment to build images
+      run: ./configure.sh
+      
+    - name: Build images
+      run: make build-all
+      
+    - name: Push images
+      run: make push-all
