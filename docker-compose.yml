@@ -24,6 +24,9 @@ services:
     image: mikel00per/${MYSQL_NAME}
     env_file:
       - .env
+    environment:
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     build:
       context: ${MYSQL_CONTEXT}
       args:
