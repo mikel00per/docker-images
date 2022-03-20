@@ -1,25 +1,29 @@
 version: "3.9"
 
 services:
-  apache:
-    hostname: ${APACHE_NAME}
-    container_name: ${APACHE_NAME}
-    image: mikel00per/${APACHE_NAME}
-    build:
-      context: ${APACHE_CONTEXT}
-      args:
-        APACHE_VERSION: "${APACHE_VERSION}"
-        APACHE_CONFIG_TARGET: "${APACHE_CONFIG_TARGET}"
-        APACHE_CONFIG_SOURCE: "${APACHE_CONFIG_SOURCE}"
-        APACHE_CONFIG_INCLUDE: "${APACHE_CONFIG_INCLUDE}"
-    ports:
-      - ${APACHE_HTTP_PORT}:${APACHE_HTTP_PORT}
-      - ${APACHE_HTTPS_PORT}:${APACHE_HTTPS_PORT}
+#  apache:
+#    hostname: ${APACHE_NAME}
+#    container_name: ${APACHE_NAME}
+#    image: mikel00per/${APACHE_NAME}
+#    env_file:
+#      - .env
+#    build:
+#      context: ${APACHE_CONTEXT}
+#      args:
+#        APACHE_VERSION: "${APACHE_VERSION}"
+#        APACHE_CONFIG_TARGET: "${APACHE_CONFIG_TARGET}"
+#        APACHE_CONFIG_SOURCE: "${APACHE_CONFIG_SOURCE}"
+#        APACHE_CONFIG_INCLUDE: "${APACHE_CONFIG_INCLUDE}"
+#    ports:
+#      - ${APACHE_HTTP_PORT}:${APACHE_HTTP_PORT}
+#      - ${APACHE_HTTPS_PORT}:${APACHE_HTTPS_PORT}
 
   mysql:
     hostname: ${MYSQL_NAME}
     container_name: ${MYSQL_NAME}
     image: mikel00per/${MYSQL_NAME}
+    env_file:
+      - .env
     build:
       context: ${MYSQL_CONTEXT}
       args:
@@ -33,6 +37,8 @@ services:
     hostname: ${NGINX_NAME}
     container_name: ${NGINX_NAME}
     image: mikel00per/${NGINX_NAME}
+    env_file:
+      - .env
     build:
       context: ${NGINX_CONTEXT}
       args:
@@ -41,12 +47,14 @@ services:
         NGINX_CONFIG_TARGET: ${NGINX_CONFIG_TARGET}
     ports:
       - ${NGINX_HTTP_PORT}:${NGINX_HTTP_PORT}
-      - ${NGINX_HTTPS_PORT}:${NGINX_HTTPS_PORT}
+      # - ${NGINX_HTTPS_PORT}:${NGINX_HTTPS_PORT}
 
   php:
     hostname: ${PHP_NAME}
     container_name: ${PHP_NAME}
     image: mikel00per/${PHP_NAME}
+    env_file:
+      - .env
     build:
       context: ${PHP_CONTEXT}
       args:
