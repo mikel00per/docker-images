@@ -20,8 +20,11 @@ build-mysql:
 build-nginx:
 	docker-compose --env-file .env build --no-cache nginx
 
-build-php:
-	docker-compose --env-file .env build --no-cache php
+build-php-development:
+	docker-compose -f php/docker-compose.yml  --env-file php/development/.env build php-development
+
+build-php-production:
+	docker-compose -f php/docker-compose.yml  --env-file php/production/.env build php-production
 
 push-apache:
 	docker-compose push apache
@@ -32,5 +35,8 @@ push-mysql:
 push-nginx:
 	docker-compose push nginx
 
-push-php:
-	docker-compose push php
+push-php-development:
+	docker-compose -f php/docker-compose.yml  --env-file php/development/.env push php-development
+
+push-php-production:
+	docker-compose -f php/docker-compose.yml  --env-file php/production/.env push php-production

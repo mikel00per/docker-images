@@ -1,1 +1,5 @@
 .idea
+.env
+
+php/development/.env
+php/production/.env

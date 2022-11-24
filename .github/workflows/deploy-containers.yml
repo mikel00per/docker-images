@@ -7,7 +7,7 @@ on:
     branches: [ dev ]
 
 jobs:
-  build-php:
+  build-php-development:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +17,7 @@ jobs:
         run: ./configure.sh
 
       - name: Build image php
-        run: make build-php
+        run: make build-php-development
 
       - name: Login to Docker Hub
         uses: docker/login-action@v1
@@ -26,7 +26,29 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Push image php
-        run: make push-php
+        run: make push-php-development
+
+  build-php-production:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Config environment to build image php
+        run: ./configure.sh
+
+      - name: Build image php
+        run: make build-php-production
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Push image php
+        run: make push-php-production
+
   build-nginx:
     runs-on: ubuntu-latest
 
