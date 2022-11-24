@@ -49,7 +49,7 @@ jobs:
       - name: Push image php
         run: make push-php-production
 
-  build-nginx:
+  build-nginx-development:
     runs-on: ubuntu-latest
 
     steps:
@@ -59,7 +59,7 @@ jobs:
         run: ./configure.sh
 
       - name: Build image nginx
-        run: make build-nginx
+        run: make build-nginx-development
 
       - name: Login to Docker Hub
         uses: docker/login-action@v1
@@ -68,4 +68,25 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Push image nginx
-        run: make push-nginx
+        run: make push-nginx-development
+
+  build-nginx-production:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Config environment to build image nginx
+        run: ./configure.sh
+
+      - name: Build image nginx
+        run: make build-nginx-production
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Push image nginx
+        run: make push-nginx-production
