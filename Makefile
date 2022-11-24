@@ -6,7 +6,10 @@ run:
 	docker-compose --env-file .env up
 
 build-all:
-	docker-compose --env-file .env build --no-cache
+	build-nginx-development
+	build-nginx-production
+	build-php-development
+	build-php-production
 
 push-all:
 	docker-compose push
