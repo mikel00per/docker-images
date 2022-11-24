@@ -3,3 +3,6 @@
 
 php/development/.env
 php/production/.env
+
+nginx/development/.env
+nginx/production/.env

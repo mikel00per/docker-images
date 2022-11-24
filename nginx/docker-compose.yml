@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+
+  nginx-development:
+    hostname: ${NGINX_NAME}
+    container_name: ${NGINX_NAME}
+    image: mikel00per/${NGINX_NAME}
+    build:
+      context: ${NGINX_CONTEXT}
+      args:
+        NGINX_VERSION: ${NGINX_VERSION}
+        NGINX_CONFIG_SOURCE: ${NGINX_CONFIG_SOURCE}
+        NGINX_CONFIG_TARGET: ${NGINX_CONFIG_TARGET}
+    ports:
+      - ${NGINX_HTTP_PORT}:${NGINX_HTTP_PORT}
+      # - ${NGINX_HTTPS_PORT}:${NGINX_HTTPS_PORT}
+
+  nginx-production:
+    hostname: ${NGINX_NAME}
+    container_name: ${NGINX_NAME}
+    image: mikel00per/${NGINX_NAME}
+    build:
+      context: ${NGINX_CONTEXT}
+      args:
+        NGINX_VERSION: ${NGINX_VERSION}
+        NGINX_CONFIG_SOURCE: ${NGINX_CONFIG_SOURCE}
+        NGINX_CONFIG_TARGET: ${NGINX_CONFIG_TARGET}
+    ports:
+      - ${NGINX_HTTP_PORT}:${NGINX_HTTP_PORT}
+      # - ${NGINX_HTTPS_PORT}:${NGINX_HTTPS_PORT}

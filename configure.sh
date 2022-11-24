@@ -1,8 +1,3 @@
-if ! test -f ".env"; then
-  echo "Copy .env"
-  cp .env.example .env
-fi
-
 if ! test -f "php/development/.env"; then
   echo "Copy php/development/.env"
   cp php/development/.env.example php/development/.env
@@ -11,4 +6,14 @@ fi
 if ! test -f "php/production/.env"; then
   echo "Copy php/production/.env"
   cp php/production/.env.example php/production/.env
+fi
+
+if ! test -f "nginx/development/.env"; then
+  echo "Copy nginx/development/.env"
+  cp nginx/development/.env.example nginx/development/.env
+fi
+
+if ! test -f "nginx/production/.env"; then
+  echo "Copy nginx/production/.env"
+  cp nginx/production/.env.example nginx/production/.env
 fi
