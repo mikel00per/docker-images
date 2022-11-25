@@ -1,5 +1,3 @@
-include .env
-
 all: build-all push-all
 
 run:
