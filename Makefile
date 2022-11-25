@@ -1,12 +1,13 @@
-include .env
-
 all: build-all push-all
 
 run:
 	docker-compose --env-file .env up
 
 build-all:
-	docker-compose --env-file .env build --no-cache
+	build-nginx-development
+	build-nginx-production
+	build-php-development
+	build-php-production
 
 push-all:
 	docker-compose push
@@ -39,7 +40,7 @@ push-nginx-development:
 	docker-compose -f nginx/docker-compose.yml  --env-file nginx/development/.env push nginx-development
 
 push-nginx-production:
-	docker-compose -f nginx/docker-compose.yml  --env-file nginx/development/.env push nginx-production
+	docker-compose -f nginx/docker-compose.yml  --env-file nginx/production/.env push nginx-production
 
 push-php-development:
 	docker-compose -f php/docker-compose.yml  --env-file php/development/.env push php-development
