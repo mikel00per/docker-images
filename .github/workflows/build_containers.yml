@@ -1,0 +1,54 @@
+name: Build Containers
+
+on:
+  pull_request:
+    branches: [ dev ]
+
+jobs:
+  build-php-development:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Config environment to build image php
+        run: ./configure.sh
+
+      - name: Build image php
+        run: make build-php-development
+
+  build-php-production:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Config environment to build image php
+        run: ./configure.sh
+
+      - name: Build image php
+        run: make build-php-production
+
+  build-nginx-development:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Config environment to build image nginx
+        run: ./configure.sh
+
+      - name: Build image nginx
+        run: make build-nginx-development
+
+  build-nginx-production:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Config environment to build image nginx
+        run: ./configure.sh
+
+      - name: Build image nginx
+        run: make build-nginx-production
