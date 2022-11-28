@@ -1,2 +1,4 @@
+#!/bin/bash
+
 composer install --no-interaction --optimize-autoloader
-php-fpm
+php-fpm -F -R
