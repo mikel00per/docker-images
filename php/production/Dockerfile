@@ -6,6 +6,8 @@ RUN apk update; \
     apk upgrade; \
     apk add bash;
 
+RUN docker-php-ext-configure pdo_mysql && docker-php-ext-install pdo_mysql
+
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 ARG PHP_CONFIG_SOURCE
