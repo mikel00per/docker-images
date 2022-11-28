@@ -30,6 +30,12 @@ build-php-development:
 build-php-production:
 	docker-compose -f php/docker-compose.yml  --env-file php/production/.env build php-production
 
+run-php-development:
+	docker-compose -f php/docker-compose.yml  --env-file php/development/.env up php-development
+
+run-php-production:
+	docker-compose -f php/docker-compose.yml  --env-file php/production/.env up php-production
+
 push-apache:
 	docker-compose push apache
 
