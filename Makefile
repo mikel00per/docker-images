@@ -1,8 +1,5 @@
 all: build-all push-all
 
-run:
-	docker-compose --env-file .env up
-
 build-all:
 	build-nginx-development
 	build-nginx-production
@@ -11,9 +8,6 @@ build-all:
 
 push-all:
 	docker-compose push
-
-build-apache:
-	docker-compose --env-file .env build --no-cache apache
 
 build-mysql:
 	docker-compose --env-file .env build --no-cache mysql
@@ -35,9 +29,6 @@ run-php-development:
 
 run-php-production:
 	docker-compose -f php/docker-compose.yml  --env-file php/production/.env up php-production
-
-push-apache:
-	docker-compose push apache
 
 push-mysql:
 	docker-compose push nginx
