@@ -26,10 +26,17 @@ build-all: ##@General Build all containers
 	build-php-production
 
 push-all: ##@General Push all containers
-	docker-compose push
+	build-all
+	push-nginx-development
+	push-nginx-production
+	push-php-development
+	push-php-production
 
 build-mysql: ##@MySQL Build MySQL container
 	docker-compose --env-file .env build --no-cache mysql
+
+build-nginx-development: ##@NGINX Build NGINX development container
+	docker-compose -f nginx/docker-compose.yml --env-file nginx/development/.env build nginx-development
 
 build-nginx-development: ##@NGINX Build NGINX development container
 	docker-compose -f nginx/docker-compose.yml --env-file nginx/development/.env build nginx-development
@@ -48,6 +55,12 @@ run-php-development: ##@PHP Run PHP development container
 
 run-php-production: ##@PHP Run PHP production container
 	docker-compose -f php/docker-compose.yml --env-file php/production/.env up php-production
+
+run-nginx-development: ##@NGINX Run NGINX development container
+	docker-compose -f nginx/docker-compose.yml --env-file nginx/development/.env up nginx-development
+
+run-nginx-production: ##@NGINX Run NGINX production container
+	docker-compose -f nginx/docker-compose.yml --env-file nginx/production/.env up nginx-production
 
 push-mysql: ##@MySQL Build MySQL container
 	docker-compose push nginx
