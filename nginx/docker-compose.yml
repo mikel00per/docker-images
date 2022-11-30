@@ -18,7 +18,6 @@ services:
       - ${NGINX_HTTP_PORT}:${NGINX_HTTP_PORT}
       # - ${NGINX_HTTPS_PORT}:${NGINX_HTTPS_PORT}
     healthcheck:
-      test: curl --fail http://localhost/status || exit 1
       interval: 10s
       timeout: 3s
       retries: 3
@@ -43,7 +42,6 @@ services:
       - ${NGINX_HTTP_PORT}:${NGINX_HTTP_PORT}
       # - ${NGINX_HTTPS_PORT}:${NGINX_HTTPS_PORT}
     healthcheck:
-      test: curl --fail http://localhost/status || exit 1
       interval: 10s
       timeout: 3s
       retries: 3
