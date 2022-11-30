@@ -21,6 +21,8 @@ services:
         PHP_HEALTHCHECK_TARGET: ${PHP_HEALTHCHECK_TARGET}
     ports:
       - ${PHP_PORT}:${PHP_PORT}
+    networks:
+      - default
     healthcheck:
       interval: 10s
       timeout: 3s
@@ -46,8 +48,15 @@ services:
         PHP_HEALTHCHECK_TARGET: ${PHP_HEALTHCHECK_TARGET}
     ports:
       - ${PHP_PORT}:${PHP_PORT}
+    networks:
+      - default
     healthcheck:
       interval: 10s
       timeout: 3s
       retries: 3
       start_period: 30s
+
+networks:
+  default:
+    name: backend
+    driver: bridge
