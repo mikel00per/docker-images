@@ -11,11 +11,20 @@ services:
         NGINX_VERSION: ${NGINX_VERSION}
         NGINX_CONFIG_SOURCE: ${NGINX_CONFIG_SOURCE}
         NGINX_CONFIG_TARGET: ${NGINX_CONFIG_TARGET}
+        NGINX_HEALTHCHECK_SOURCE: ${NGINX_HEALTHCHECK_SOURCE}
+        NGINX_HEALTHCHECK_TARGET: ${NGINX_HEALTHCHECK_TARGET}
+        PHP_NAME: ${PHP_NAME}
     ports:
       - ${NGINX_HTTP_PORT}:${NGINX_HTTP_PORT}
       # - ${NGINX_HTTPS_PORT}:${NGINX_HTTPS_PORT}
+    healthcheck:
+      test: curl --fail http://localhost/status || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
     networks:
-      - backend
+      - default
 
   nginx-production:
     hostname: ${NGINX_NAME}
@@ -27,12 +36,23 @@ services:
         NGINX_VERSION: ${NGINX_VERSION}
         NGINX_CONFIG_SOURCE: ${NGINX_CONFIG_SOURCE}
         NGINX_CONFIG_TARGET: ${NGINX_CONFIG_TARGET}
+        PHP_NAME: ${PHP_NAME}
+        NGINX_HEALTHCHECK_SOURCE: ${NGINX_HEALTHCHECK_SOURCE}
+        NGINX_HEALTHCHECK_TARGET: ${NGINX_HEALTHCHECK_TARGET}
     ports:
       - ${NGINX_HTTP_PORT}:${NGINX_HTTP_PORT}
       # - ${NGINX_HTTPS_PORT}:${NGINX_HTTPS_PORT}
+    healthcheck:
+      test: curl --fail http://localhost/status || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
+
     networks:
-      - backend
+      - default
 
 networks:
-  backend:
+  default:
+    name: backend
     driver: bridge
