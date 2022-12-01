@@ -17,6 +17,7 @@ services:
     ports:
       - ${NGINX_HTTP_PORT}:${NGINX_HTTP_PORT}
       # - ${NGINX_HTTPS_PORT}:${NGINX_HTTPS_PORT}
+
     healthcheck:
       interval: 10s
       timeout: 3s
