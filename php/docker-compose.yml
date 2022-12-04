@@ -9,6 +9,10 @@ services:
     build:
       context: ${PHP_CONTEXT}
       args:
+        UID: ${UID}
+        GID: ${GID}
+        UNAME: ${UNAME}
+        GNAME: ${GNAME}
         PHP_VERSION: ${PHP_VERSION}
         PHP_CONFIG_SOURCE: ${PHP_CONFIG_SOURCE}
         PHP_CONFIG_TARGET: ${PHP_CONFIG_TARGET}
@@ -37,6 +41,10 @@ services:
     build:
       context: ${PHP_CONTEXT}
       args:
+        UID: ${UID}
+        GID: ${GID}
+        UNAME: ${UNAME}
+        GNAME: ${GNAME}
         PHP_VERSION: ${PHP_VERSION}
         PHP_CONFIG_SOURCE: ${PHP_CONFIG_SOURCE}
         PHP_CONFIG_TARGET: ${PHP_CONFIG_TARGET}

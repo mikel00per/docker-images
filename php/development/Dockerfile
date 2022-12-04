@@ -4,7 +4,7 @@ FROM php:${PHP_VERSION}
 
 RUN apk update; \
     apk upgrade; \
-    apk add bash fcgi;
+    apk add bash fcgi shadow;
 
 RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \
   && pecl install xdebug \
@@ -28,8 +28,15 @@ ARG PHP_HEALTHCHECK_SOURCE
 ARG PHP_HEALTHCHECK_TARGET
 COPY ${PHP_HEALTHCHECK_SOURCE} ${PHP_HEALTHCHECK_TARGET}
 
+ARG UID
+ARG GID
+ARG UNAME
+ARG GNAME
+RUN usermod -u ${UID} ${UNAME} && groupmod -g ${GID} ${GNAME}
+
 ARG PHP_CODE_TARGET
 RUN mkdir -p ${PHP_CODE_TARGET}
+RUN chown ${UNAME}:${GNAME} -R ${PHP_CODE_TARGET}
 
 WORKDIR ${PHP_CODE_TARGET}
 
@@ -40,6 +47,8 @@ ENV PHP_ENTRYPOINT_TARGET=$PHP_ENTRYPOINT_TARGET
 COPY ${PHP_ENTRYPOINT_SOURCE} ${PHP_ENTRYPOINT_TARGET}
 
 HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
+
+USER www-data
 
 ARG PHP_PORT
 EXPOSE ${PHP_PORT}

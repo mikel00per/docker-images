@@ -4,7 +4,7 @@ FROM php:${PHP_VERSION}
 
 RUN apk update; \
     apk upgrade; \
-    apk add bash;
+    apk add bash fcgi shadow;
 
 RUN docker-php-ext-configure pdo_mysql && docker-php-ext-install pdo_mysql
 
@@ -23,8 +23,15 @@ ARG PHP_HEALTHCHECK_SOURCE
 ARG PHP_HEALTHCHECK_TARGET
 COPY ${PHP_HEALTHCHECK_SOURCE} ${PHP_HEALTHCHECK_TARGET}
 
+ARG UID
+ARG GID
+ARG UNAME
+ARG GNAME
+RUN usermod -u ${UID} ${UNAME} && groupmod -g ${GID} ${GNAME}
+
 ARG PHP_CODE_TARGET
 RUN mkdir -p ${PHP_CODE_TARGET}
+RUN chown ${UNAME}:${GNAME} -R ${PHP_CODE_TARGET}
 
 WORKDIR ${PHP_CODE_TARGET}
 
