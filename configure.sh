@@ -17,3 +17,13 @@ if ! test -f "nginx/production/.env"; then
   echo "Copy nginx/production/.env"
   cp nginx/production/.env.example nginx/production/.env
 fi
+
+if ! test -f "mysql/development/.env"; then
+  echo "Copy mysql/development/.env"
+  cp mysql/development/.env.example mysql/development/.env
+fi
+
+if ! test -f "mysql/production/.env"; then
+  echo "Copy mysql/production/.env"
+  cp mysql/production/.env.example mysql/production/.env
+fi

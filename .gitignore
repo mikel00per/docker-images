@@ -6,3 +6,6 @@ php/production/.env
 
 nginx/development/.env
 nginx/production/.env
+
+mysql/development/.env
+mysql/production/.env
