@@ -45,11 +45,8 @@ build-php-production: ##@PHP Build PHP production container
 build-nginx-development: ##@NGINX Build NGINX development container
 	docker-compose -f nginx/docker-compose.yml --env-file nginx/development/.env build nginx-development
 
-build-nginx-development: ##@NGINX Build NGINX development container
-	docker-compose -f nginx/docker-compose.yml --env-file nginx/development/.env build nginx-development
-
-build-nginx-development: ##@NGINX Build NGINX development container
-	docker-compose -f nginx/docker-compose.yml --env-file nginx/development/.env build nginx-development
+build-nginx-production: ##@NGINX Build NGINX production container
+	docker-compose -f nginx/docker-compose.yml --env-file nginx/production/.env build nginx-production
 
 build-mysql-development: ##@MyQSL Build MyQSL development container
 	docker-compose -f mysql/docker-compose.yml --env-file mysql/development/.env build mysql-development
