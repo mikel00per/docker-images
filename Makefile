@@ -20,35 +20,42 @@ help: ##@Miscellaneous Show this help
 all: build-all push-all
 
 build-all: ##@General Build all containers
-	build-nginx-development
-	build-nginx-production
 	build-php-development
 	build-php-production
+	build-nginx-development
+	build-nginx-production
+	build-mysql-development
+	build-mysql-production
 
 push-all: ##@General Push all containers
 	build-all
-	push-nginx-development
-	push-nginx-production
 	push-php-development
 	push-php-production
-
-build-mysql: ##@MySQL Build MySQL container
-	docker-compose --env-file .env build --no-cache mysql
-
-build-nginx-development: ##@NGINX Build NGINX development container
-	docker-compose -f nginx/docker-compose.yml --env-file nginx/development/.env build nginx-development
-
-build-nginx-development: ##@NGINX Build NGINX development container
-	docker-compose -f nginx/docker-compose.yml --env-file nginx/development/.env build nginx-development
-
-build-nginx-production: ##@NGINX Build NGINX production container
-	docker-compose -f nginx/docker-compose.yml --env-file nginx/production/.env build nginx-production
+	push-nginx-development
+	push-nginx-production
+	push-mysql-development
+	push-mysql-production
 
 build-php-development: ##@PHP Build PHP development container
 	docker-compose -f php/docker-compose.yml --env-file php/development/.env build php-development
 
 build-php-production: ##@PHP Build PHP production container
 	docker-compose -f php/docker-compose.yml --env-file php/production/.env build php-production
+
+build-nginx-development: ##@NGINX Build NGINX development container
+	docker-compose -f nginx/docker-compose.yml --env-file nginx/development/.env build nginx-development
+
+build-nginx-development: ##@NGINX Build NGINX development container
+	docker-compose -f nginx/docker-compose.yml --env-file nginx/development/.env build nginx-development
+
+build-nginx-development: ##@NGINX Build NGINX development container
+	docker-compose -f nginx/docker-compose.yml --env-file nginx/development/.env build nginx-development
+
+build-mysql-development: ##@MyQSL Build MyQSL development container
+	docker-compose -f mysql/docker-compose.yml --env-file mysql/development/.env build mysql-development
+
+build-mysql-production: ##@MyQSL Build MyQSL production container
+	docker-compose -f mysql/docker-compose.yml --env-file mysql/production/.env build mysql-production
 
 run-php-development: ##@PHP Run PHP development container
 	docker-compose -f php/docker-compose.yml --env-file php/development/.env up php-development
@@ -62,8 +69,17 @@ run-nginx-development: ##@NGINX Run NGINX development container
 run-nginx-production: ##@NGINX Run NGINX production container
 	docker-compose -f nginx/docker-compose.yml --env-file nginx/production/.env up nginx-production
 
-push-mysql: ##@MySQL Build MySQL container
-	docker-compose push nginx
+run-mysql-development: ##@MyQSL Run MyQSL development container
+	docker-compose -f mysql/docker-compose.yml --env-file mysql/development/.env up mysql-development
+
+run-mysql-production: ##@MyQSL Run MyQSL production container
+	docker-compose -f mysql/docker-compose.yml --env-file mysql/production/.env up mysql-production
+
+push-php-development: ##@PHP Push PHP development container
+	docker-compose -f php/docker-compose.yml --env-file php/development/.env push php-development
+
+push-php-production: ##@PHP Push PHP development container
+	docker-compose -f php/docker-compose.yml --env-file php/production/.env push php-production
 
 push-nginx-development: ##@NGINX Push NGINX development container
 	docker-compose -f nginx/docker-compose.yml --env-file nginx/development/.env push nginx-development
@@ -71,8 +87,9 @@ push-nginx-development: ##@NGINX Push NGINX development container
 push-nginx-production: ##@NGINX Push NGINX production container
 	docker-compose -f nginx/docker-compose.yml --env-file nginx/production/.env push nginx-production
 
-push-php-development: ##@PHP Push PHP development container
-	docker-compose -f php/docker-compose.yml --env-file php/development/.env push php-development
+push-mysql-development: ##@MySQL Push MySQL development container
+	docker-compose -f mysql/docker-compose.yml --env-file mysql/development/.env push mysql-development
 
-push-php-production: ##@PHP Push PHP development container
-	docker-compose -f php/docker-compose.yml --env-file php/production/.env push php-production
+push-mysql-production: ##@MySQL Push MySQL production container
+	docker-compose -f mysql/docker-compose.yml --env-file mysql/production/.env push mysql-production
+
