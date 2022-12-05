@@ -75,7 +75,7 @@ run-mysql-production: ##@MySQL Run MySQL production container
 push-php-development: ##@PHP Push PHP development container
 	docker-compose -f php/docker-compose.yml --env-file php/development/.env push php-development
 
-push-php-production: ##@PHP Push PHP development container
+push-php-production: ##@PHP Push PHP production container
 	docker-compose -f php/docker-compose.yml --env-file php/production/.env push php-production
 
 push-nginx-development: ##@NGINX Push NGINX development container
