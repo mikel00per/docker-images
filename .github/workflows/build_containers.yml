@@ -76,3 +76,27 @@ jobs:
 
       - name: Build image mysql
         run: make build-mysql-production
+
+  build-node-development:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Config environment to build image node
+        run: ./configure.sh
+
+      - name: Build image node
+        run: make build-node-development
+
+  build-node-production:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Config environment to build image node
+        run: ./configure.sh
+
+      - name: Build image node
+        run: make build-node-production
