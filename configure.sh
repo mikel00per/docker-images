@@ -27,3 +27,13 @@ if ! test -f "mysql/production/.env"; then
   echo "Copy mysql/production/.env"
   cp mysql/production/.env.example mysql/production/.env
 fi
+
+if ! test -f "node/development/.env"; then
+  echo "Copy node/development/.env"
+  cp node/development/.env.example node/development/.env
+fi
+
+if ! test -f "node/production/.env"; then
+  echo "Copy node/production/.env"
+  cp node/production/.env.example node/production/.env
+fi

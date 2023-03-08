@@ -9,3 +9,6 @@ nginx/production/.env
 
 mysql/development/.env
 mysql/production/.env
+
+node/development/.env
+node/production/.env

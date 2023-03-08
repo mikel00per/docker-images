@@ -1,0 +1,50 @@
+name: Deploy Node Containers
+
+on:
+  push:
+    branches: [ dev ]
+    paths:
+      - 'node/**'
+
+jobs:
+  node-development-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Config environment to build image node
+        run: ./configure.sh
+
+      - name: Build image node
+        run: make build-node-development
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Push image node
+        run: make push-node-development
+
+  node-production-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Config environment to build image node
+        run: ./configure.sh
+
+      - name: Build image node
+        run: make build-node-production
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Push image node
+        run: make push-node-production

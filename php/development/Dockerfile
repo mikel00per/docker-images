@@ -4,7 +4,7 @@ FROM php:${PHP_VERSION}
 
 RUN apk update; \
     apk upgrade; \
-    apk add bash fcgi shadow;
+    apk add bash fcgi shadow linux-headers;
 
 RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \
   && pecl install xdebug \

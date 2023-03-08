@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+
+  node-development:
+    hostname: ${NODE_NAME}
+    container_name: ${NODE_NAME}
+    image: mikel00per/${NODE_NAME}
+    build:
+      context: ${NODE_CONTEXT}
+      args:
+        UID: ${UID}
+        GID: ${GID}
+        UNAME: ${UNAME}
+        GNAME: ${GNAME}
+        NODE_VERSION: ${NODE_VERSION}
+        NODE_CODE_TARGET: ${NODE_CODE_TARGET}
+        NODE_ENTRYPOINT_SOURCE: ${NODE_ENTRYPOINT_SOURCE}
+        NODE_ENTRYPOINT_TARGET: ${NODE_ENTRYPOINT_TARGET}
+        NODE_HEALTHCHECK_SOURCE: ${NODE_HEALTHCHECK_SOURCE}
+        NODE_HEALTHCHECK_TARGET: ${NODE_HEALTHCHECK_TARGET}
+        NODE_PORT: ${NODE_PORT}
+    ports:
+      - ${NODE_PORT}:${NODE_PORT}
+    networks:
+      - default
+    healthcheck:
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
+
+  node-production:
+    hostname: ${NODE_NAME}
+    container_name: ${NODE_NAME}
+    image: mikel00per/${NODE_NAME}
+    build:
+      context: ${NODE_CONTEXT}
+      args:
+        UID: ${UID}
+        GID: ${GID}
+        UNAME: ${UNAME}
+        GNAME: ${GNAME}
+        NODE_VERSION: ${NODE_VERSION}
+        NODE_CODE_TARGET: ${NODE_CODE_TARGET}
+        NODE_ENTRYPOINT_SOURCE: ${NODE_ENTRYPOINT_SOURCE}
+        NODE_ENTRYPOINT_TARGET: ${NODE_ENTRYPOINT_TARGET}
+        NODE_HEALTHCHECK_SOURCE: ${NODE_HEALTHCHECK_SOURCE}
+        NODE_HEALTHCHECK_TARGET: ${NODE_HEALTHCHECK_TARGET}
+        NODE_PORT: ${NODE_PORT}
+    ports:
+      - ${NODE_PORT}:${NODE_PORT}
+    networks:
+      - default
+    healthcheck:
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
+
+networks:
+  default:
+    name: frontend
+    driver: bridge
