@@ -2,16 +2,30 @@ ARG PHP_VERSION
 
 FROM php:${PHP_VERSION}
 
+# Common system
 RUN apk update; \
     apk upgrade; \
-    apk add bash fcgi shadow linux-headers;
+    apk add --no-cache \
+      autoconf \
+      automake \
+      make gcc \
+      g++ \
+      bash \
+      icu-dev \
+      libzip-dev \
+      rabbitmq-c \
+      rabbitmq-c-dev \
+      fcgi \
+      shadow \
+      linux-headers \
+      pcre-dev ${PHPIZE_DEPS};
 
-RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \
-  && pecl install xdebug \
-  && docker-php-ext-enable xdebug \
-  && apk del pcre-dev ${PHPIZE_DEPS}
+# Common php
+RUN docker-php-ext-install -j$(nproc) \
+    bcmath \
+    intl \
+    zip
 
-RUN docker-php-ext-configure pdo_mysql && docker-php-ext-install pdo_mysql
 # Xdebug
 RUN pecl install xdebug  && docker-php-ext-enable xdebug
 
@@ -24,6 +38,8 @@ RUN docker-php-ext-install -j$(nproc) opcache && docker-php-ext-enable opcache
 # AMQP
 RUN pecl install amqp && docker-php-ext-enable amqp
 
+# MySQL
+RUN docker-php-ext-configure pdo_mysql && docker-php-ext-install -j$(nproc) pdo pdo_mysql
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
