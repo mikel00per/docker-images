@@ -12,6 +12,8 @@ RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \
   && apk del pcre-dev ${PHPIZE_DEPS}
 
 RUN docker-php-ext-configure pdo_mysql && docker-php-ext-install pdo_mysql
+# APCU
+RUN pecl install apcu && docker-php-ext-enable apcu
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 

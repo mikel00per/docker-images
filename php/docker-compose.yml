@@ -18,6 +18,8 @@ services:
         PHP_CONFIG_TARGET: ${PHP_CONFIG_TARGET}
         PHP_FPM_CONFIG_SOURCE: ${PHP_FPM_CONFIG_SOURCE}
         PHP_FPM_CONFIG_TARGET: ${PHP_FPM_CONFIG_TARGET}
+        PHP_APCU_CONFIG_SOURCE: ${PHP_APCU_CONFIG_SOURCE}
+        PHP_APCU_CONFIG_TARGET: ${PHP_APCU_CONFIG_TARGET}
         PHP_CODE_TARGET: ${PHP_CODE_TARGET}
         PHP_ENTRYPOINT_SOURCE: ${PHP_ENTRYPOINT_SOURCE}
         PHP_ENTRYPOINT_TARGET: ${PHP_ENTRYPOINT_TARGET}
@@ -33,6 +35,7 @@ services:
       timeout: 3s
       retries: 3
       start_period: 30s
+      test: ['CMD', 'docker-healthcheck']
 
   php-production:
     hostname: ${PHP_NAME}
