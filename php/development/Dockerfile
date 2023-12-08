@@ -12,6 +12,9 @@ RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \
   && apk del pcre-dev ${PHPIZE_DEPS}
 
 RUN docker-php-ext-configure pdo_mysql && docker-php-ext-install pdo_mysql
+# Xdebug
+RUN pecl install xdebug  && docker-php-ext-enable xdebug
+
 # APCU
 RUN pecl install apcu && docker-php-ext-enable apcu
 
