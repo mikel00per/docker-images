@@ -41,73 +41,73 @@ push-all: ##@General Push all containers
 	push-node-production
 
 build-php-development: ##@PHP Build PHP development container
-	docker-compose -f php/docker-compose.yml --env-file php/development/.env build php-development
+	docker compose -f php/docker-compose.yml --env-file php/development/.env build php-development
 
 build-php-production: ##@PHP Build PHP production container
-	docker-compose -f php/docker-compose.yml --env-file php/production/.env build php-production
+	docker compose -f php/docker-compose.yml --env-file php/production/.env build php-production
 
 build-nginx-development: ##@NGINX Build NGINX development container
-	docker-compose -f nginx/docker-compose.yml --env-file nginx/development/.env build nginx-development
+	docker compose -f nginx/docker-compose.yml --env-file nginx/development/.env build nginx-development
 
 build-nginx-production: ##@NGINX Build NGINX production container
-	docker-compose -f nginx/docker-compose.yml --env-file nginx/production/.env build nginx-production
+	docker compose -f nginx/docker-compose.yml --env-file nginx/production/.env build nginx-production
 
 build-mysql-development: ##@MySQL Build MySQL development container
-	docker-compose -f mysql/docker-compose.yml --env-file mysql/development/.env build mysql-development
+	docker compose -f mysql/docker-compose.yml --env-file mysql/development/.env build mysql-development
 
 build-node-development: ##@Node Build Node development container
-	docker-compose -f node/docker-compose.yml --env-file node/development/.env build node-development
+	docker compose -f node/docker-compose.yml --env-file node/development/.env build node-development
 
 build-node-production: ##@Node Build Node production container
-	docker-compose -f node/docker-compose.yml --env-file node/production/.env build node-production
+	docker compose -f node/docker-compose.yml --env-file node/production/.env build node-production
 
 build-mysql-production: ##@MySQL Build MySQL production container
-	docker-compose -f mysql/docker-compose.yml --env-file mysql/production/.env build mysql-production
+	docker compose -f mysql/docker-compose.yml --env-file mysql/production/.env build mysql-production
 
 run-php-development: ##@PHP Run PHP development container
-	docker-compose -f php/docker-compose.yml --env-file php/development/.env up php-development
+	docker compose -f php/docker-compose.yml --env-file php/development/.env up php-development
 
 run-php-production: ##@PHP Run PHP production container
-	docker-compose -f php/docker-compose.yml --env-file php/production/.env up php-production
+	docker compose -f php/docker-compose.yml --env-file php/production/.env up php-production
 
 run-nginx-development: ##@NGINX Run NGINX development container
-	docker-compose -f nginx/docker-compose.yml --env-file nginx/development/.env up nginx-development
+	docker compose -f nginx/docker-compose.yml --env-file nginx/development/.env up nginx-development
 
 run-nginx-production: ##@NGINX Run NGINX production container
-	docker-compose -f nginx/docker-compose.yml --env-file nginx/production/.env up nginx-production
+	docker compose -f nginx/docker-compose.yml --env-file nginx/production/.env up nginx-production
 
 run-mysql-development: ##@MySQL Run MySQL development container
-	docker-compose -f mysql/docker-compose.yml --env-file mysql/development/.env up mysql-development
+	docker compose -f mysql/docker-compose.yml --env-file mysql/development/.env up mysql-development
 
 run-mysql-production: ##@MySQL Run MySQL production container
-	docker-compose -f mysql/docker-compose.yml --env-file mysql/production/.env up mysql-production
+	docker compose -f mysql/docker-compose.yml --env-file mysql/production/.env up mysql-production
 
 run-node-development: ##@Node Run Node development container
-	docker-compose -f node/docker-compose.yml --env-file node/development/.env up node-development
+	docker compose -f node/docker-compose.yml --env-file node/development/.env up node-development
 
 run-node-production: ##@Node Run Node production container
-	docker-compose -f node/docker-compose.yml --env-file node/production/.env up node-production
+	docker compose -f node/docker-compose.yml --env-file node/production/.env up node-production
 
 push-php-development: ##@PHP Push PHP development container
-	docker-compose -f php/docker-compose.yml --env-file php/development/.env push php-development
+	docker compose -f php/docker-compose.yml --env-file php/development/.env push php-development
 
 push-php-production: ##@PHP Push PHP production container
-	docker-compose -f php/docker-compose.yml --env-file php/production/.env push php-production
+	docker compose -f php/docker-compose.yml --env-file php/production/.env push php-production
 
 push-nginx-development: ##@NGINX Push NGINX development container
-	docker-compose -f nginx/docker-compose.yml --env-file nginx/development/.env push nginx-development
+	docker compose -f nginx/docker-compose.yml --env-file nginx/development/.env push nginx-development
 
 push-nginx-production: ##@NGINX Push NGINX production container
-	docker-compose -f nginx/docker-compose.yml --env-file nginx/production/.env push nginx-production
+	docker compose -f nginx/docker-compose.yml --env-file nginx/production/.env push nginx-production
 
 push-mysql-development: ##@MySQL Push MySQL development container
-	docker-compose -f mysql/docker-compose.yml --env-file mysql/development/.env push mysql-development
+	docker compose -f mysql/docker-compose.yml --env-file mysql/development/.env push mysql-development
 
 push-mysql-production: ##@MySQL Push MySQL production container
-	docker-compose -f mysql/docker-compose.yml --env-file mysql/production/.env push mysql-production
+	docker compose -f mysql/docker-compose.yml --env-file mysql/production/.env push mysql-production
 
 push-node-development: ##@Node Push Node development container
-	docker-compose -f node/docker-compose.yml --env-file node/development/.env push node-development
+	docker compose -f node/docker-compose.yml --env-file node/development/.env push node-development
 
 push-node-production: ##@Node Push Node production container
-	docker-compose -f node/docker-compose.yml --env-file node/production/.env push node-production
+	docker compose -f node/docker-compose.yml --env-file node/production/.env push node-production
