@@ -2,22 +2,59 @@ ARG PHP_VERSION
 
 FROM php:${PHP_VERSION}
 
+
+# Common system
 RUN apk update; \
     apk upgrade; \
-    apk add bash fcgi shadow;
+    apk add --no-cache \
+      autoconf \
+      automake \
+      make gcc \
+      g++ \
+      bash \
+      icu-dev \
+      libzip-dev \
+      rabbitmq-c \
+      rabbitmq-c-dev \
+      fcgi \
+      shadow \
+      linux-headers \
+      pcre-dev ${PHPIZE_DEPS};
 
-RUN docker-php-ext-configure pdo_mysql && docker-php-ext-install pdo_mysql
+# Common php
+RUN docker-php-ext-install -j$(nproc) \
+    bcmath \
+    intl \
+    zip
 
+# APCU
+RUN pecl install apcu && docker-php-ext-enable apcu
+
+# OPCache
+RUN docker-php-ext-install -j$(nproc) opcache && docker-php-ext-enable opcache
+
+# AMQP
+RUN pecl install amqp && docker-php-ext-enable amqp
+
+# MySQL
+RUN docker-php-ext-configure pdo_mysql && docker-php-ext-install -j$(nproc) pdo pdo_mysql
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 ARG PHP_CONFIG_SOURCE
 ARG PHP_CONFIG_TARGET
-
 COPY ${PHP_CONFIG_SOURCE} ${PHP_CONFIG_TARGET}
 
 ARG PHP_FPM_CONFIG_SOURCE
 ARG PHP_FPM_CONFIG_TARGET
 COPY ${PHP_FPM_CONFIG_SOURCE} ${PHP_FPM_CONFIG_TARGET}
+
+ARG PHP_APCU_CONFIG_SOURCE
+ARG PHP_APCU_CONFIG_TARGET
+COPY ${PHP_APCU_CONFIG_SOURCE} ${PHP_APCU_CONFIG_TARGET}
+
+ARG PHP_OPCACHE_CONFIG_SOURCE
+ARG PHP_OPCACHE_CONFIG_TARGET
+COPY ${PHP_OPCACHE_CONFIG_SOURCE} ${PHP_OPCACHE_CONFIG_TARGET}
 
 ARG PHP_HEALTHCHECK_SOURCE
 ARG PHP_HEALTHCHECK_TARGET
