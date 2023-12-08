@@ -15,6 +15,10 @@ RUN docker-php-ext-configure pdo_mysql && docker-php-ext-install pdo_mysql
 # APCU
 RUN pecl install apcu && docker-php-ext-enable apcu
 
+# OPCache
+RUN docker-php-ext-install -j$(nproc) opcache && docker-php-ext-enable opcache
+
+
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 ARG PHP_CONFIG_SOURCE
