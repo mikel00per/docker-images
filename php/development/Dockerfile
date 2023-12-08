@@ -21,6 +21,9 @@ RUN pecl install apcu && docker-php-ext-enable apcu
 # OPCache
 RUN docker-php-ext-install -j$(nproc) opcache && docker-php-ext-enable opcache
 
+# AMQP
+RUN pecl install amqp && docker-php-ext-enable amqp
+
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
