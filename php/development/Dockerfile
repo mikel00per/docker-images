@@ -42,11 +42,6 @@ RUN pecl install amqp && docker-php-ext-enable amqp
 # MySQL
 RUN docker-php-ext-configure pdo_mysql && docker-php-ext-install -j$(nproc) pdo pdo_mysql
 
-# Supervisord
-ARG PHP_CONFIG_SOURCE
-ARG PHP_CONFIG_TARGET
-COPY ${SUPERVIDORD_CONFIG_SOURCE} ${SUPERVIDORD_CONFIG_TARGET}
-
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 ARG PHP_CONFIG_SOURCE
@@ -67,9 +62,18 @@ ARG UNAME
 ARG GNAME
 RUN usermod -u ${UID} ${UNAME} && groupmod -g ${GID} ${GNAME}
 
+# Supervisord
+ARG SUPERVISORD_CONFIG_SOURCE
+ARG SUPERVISORD_CONFIG_TARGET
+COPY ${SUPERVISORD_CONFIG_SOURCE} ${SUPERVISORD_CONFIG_TARGET}
+
 ARG PHP_CODE_TARGET
 RUN mkdir -p ${PHP_CODE_TARGET}
 RUN chown ${UNAME}:${GNAME} -R ${PHP_CODE_TARGET}
+RUN chown ${UNAME}:${GNAME} -R ${SUPERVISORD_CONFIG_TARGET}
+
+CMD ["supervisord", "-c", "${SUPERVISORD_CONFIG_TARGET}"]
+CMD ["supervisorctl", "-c", "${SUPERVISORD_CONFIG_TARGET}"]
 
 WORKDIR ${PHP_CODE_TARGET}
 
