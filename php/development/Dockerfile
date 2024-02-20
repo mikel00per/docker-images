@@ -18,6 +18,7 @@ RUN apk update; \
       fcgi \
       shadow \
       linux-headers \
+      supervisor \
       pcre-dev ${PHPIZE_DEPS};
 
 # Common php
@@ -41,11 +42,15 @@ RUN pecl install amqp && docker-php-ext-enable amqp
 # MySQL
 RUN docker-php-ext-configure pdo_mysql && docker-php-ext-install -j$(nproc) pdo pdo_mysql
 
+# Supervisord
+ARG PHP_CONFIG_SOURCE
+ARG PHP_CONFIG_TARGET
+COPY ${SUPERVIDORD_CONFIG_SOURCE} ${SUPERVIDORD_CONFIG_TARGET}
+
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 ARG PHP_CONFIG_SOURCE
 ARG PHP_CONFIG_TARGET
-
 COPY ${PHP_CONFIG_SOURCE} ${PHP_CONFIG_TARGET}
 
 ARG PHP_FPM_CONFIG_SOURCE

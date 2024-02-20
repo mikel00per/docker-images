@@ -19,6 +19,7 @@ RUN apk update; \
       fcgi \
       shadow \
       linux-headers \
+      supervisor \
       pcre-dev ${PHPIZE_DEPS};
 
 # Common php
