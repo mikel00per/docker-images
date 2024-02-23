@@ -70,13 +70,14 @@ ENV SUPERVISORD_CONFIG_SOURCE ${SUPERVISORD_CONFIG_SOURCE}
 ENV SUPERVISORD_CONFIG_TARGET ${SUPERVISORD_CONFIG_TARGET}
 COPY ${SUPERVISORD_CONFIG_SOURCE} ${SUPERVISORD_CONFIG_TARGET}
 
+RUN touch /var/run/supervisor.sock
+RUN chmod 777 /var/run/supervisor.sock
+
 ARG PHP_CODE_TARGET
 RUN mkdir -p ${PHP_CODE_TARGET}
 RUN chown ${UNAME}:${GNAME} -R ${PHP_CODE_TARGET}
 RUN chown ${UNAME}:${GNAME} -R ${SUPERVISORD_CONFIG_TARGET}
-
-CMD ["supervisord", "-c", "${SUPERVISORD_CONFIG_TARGET}"]
-CMD ["supervisorctl", "-c", "${SUPERVISORD_CONFIG_TARGET}"]
+RUN chown ${UNAME}:${GNAME} -R /var/run/supervisor.sock
 
 WORKDIR ${PHP_CODE_TARGET}
 
@@ -89,6 +90,9 @@ COPY ${PHP_ENTRYPOINT_SOURCE} ${PHP_ENTRYPOINT_TARGET}
 HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
 
 USER www-data
+
+CMD ["supervisord", "-c", "${SUPERVISORD_CONFIG_TARGET}"]
+CMD ["supervisorctl", "-c", "${SUPERVISORD_CONFIG_TARGET}"]
 
 ARG PHP_PORT
 EXPOSE ${PHP_PORT}
