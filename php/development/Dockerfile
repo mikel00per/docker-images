@@ -19,6 +19,7 @@ RUN apk update; \
       shadow \
       linux-headers \
       supervisor \
+      postfix \
       pcre-dev ${PHPIZE_DEPS};
 
 # Common php
