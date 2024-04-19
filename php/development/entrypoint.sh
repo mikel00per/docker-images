@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -f ".env.build" ]; then
-    export $(grep -v '^#' .env.build | xargs -0)
+    export $(grep -v '^#' .env.build | tr -d '"' | tr -d "'" | xargs -0)
 fi
 
 if [ ! -d "vendor" ]; then
