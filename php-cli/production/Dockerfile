@@ -91,10 +91,9 @@ HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
 
 USER www-data
 
-CMD ["supervisord", "-c", "${SUPERVISORD_CONFIG_TARGET}"]
-CMD ["supervisorctl", "-c", "${SUPERVISORD_CONFIG_TARGET}"]
-
 ARG PHP_PORT
 EXPOSE ${PHP_PORT}
 
-ENTRYPOINT ${PHP_ENTRYPOINT_TARGET}
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["php", "-a"]
