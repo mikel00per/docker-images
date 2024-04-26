@@ -8,6 +8,16 @@ if ! test -f "php/production/.env"; then
   cp php/production/.env.example php/production/.env
 fi
 
+if ! test -f "php-cli/development/.env"; then
+  echo "Copy php-cli/development/.env"
+  cp php-cli/development/.env.example php-cli/development/.env
+fi
+
+if ! test -f "php-cli/production/.env"; then
+  echo "Copy php-cli/production/.env"
+  cp php-cli/production/.env.example php-cli/production/.env
+fi
+
 if ! test -f "nginx/development/.env"; then
   echo "Copy nginx/development/.env"
   cp nginx/development/.env.example nginx/development/.env

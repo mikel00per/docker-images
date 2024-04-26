@@ -4,6 +4,9 @@
 php/development/.env
 php/production/.env
 
+php-cli/development/.env
+php-cli/production/.env
+
 nginx/development/.env
 nginx/production/.env
 

@@ -22,6 +22,8 @@ all: build-all push-all
 build-all: ##@General Build all containers
 	build-php-development
 	build-php-production
+	build-php-cli-development
+	build-ph-clip-production
 	build-nginx-development
 	build-nginx-production
 	build-mysql-development
@@ -33,6 +35,8 @@ push-all: ##@General Push all containers
 	build-all
 	push-php-development
 	push-php-production
+	push-php-cli-development
+	push-php-cli-production
 	push-nginx-development
 	push-nginx-production
 	push-mysql-development
@@ -45,6 +49,12 @@ build-php-development: ##@PHP Build PHP development container
 
 build-php-production: ##@PHP Build PHP production container
 	docker compose -f php/docker-compose.yml --env-file php/production/.env build php-production
+
+build-php-cli-development: ##@PHP Build PHP CLI development container
+	docker compose -f php-cli/docker-compose.yml --env-file php-cli/development/.env build php-cli-development
+
+build-php-cli-production: ##@PHP Build PHP CLI production container
+	docker compose -f php-cli/docker-compose.yml --env-file php-cli/production/.env build php-cli-production
 
 build-nginx-development: ##@NGINX Build NGINX development container
 	docker compose -f nginx/docker-compose.yml --env-file nginx/development/.env build nginx-development
@@ -70,6 +80,12 @@ run-php-development: ##@PHP Run PHP development container
 run-php-production: ##@PHP Run PHP production container
 	docker compose -f php/docker-compose.yml --env-file php/production/.env up php-production
 
+run-php-development: ##@PHP Run PHP CLI development container
+	docker compose -f php-cli/docker-compose.yml --env-file php-cli/development/.env up php-cli-development
+
+run-php-production: ##@PHP Run PHP CLI production container
+	docker compose -f php-cli/docker-compose.yml --env-file php-cli/production/.env up php-cli-production
+
 run-nginx-development: ##@NGINX Run NGINX development container
 	docker compose -f nginx/docker-compose.yml --env-file nginx/development/.env up nginx-development
 
@@ -93,6 +109,12 @@ push-php-development: ##@PHP Push PHP development container
 
 push-php-production: ##@PHP Push PHP production container
 	docker compose -f php/docker-compose.yml --env-file php/production/.env push php-production
+
+push-php-cli-development: ##@PHP Push PHP CLI development container
+	docker compose -f php-cli/docker-compose.yml --env-file php-cli/development/.env push php-cli-development
+
+push-php-cli-production: ##@PHP Push PHP CLI production container
+	docker compose -f php-cli/docker-compose.yml --env-file php-cli/production/.env push php-cli-production
 
 push-nginx-development: ##@NGINX Push NGINX development container
 	docker compose -f nginx/docker-compose.yml --env-file nginx/development/.env push nginx-development
