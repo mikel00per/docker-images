@@ -18,7 +18,6 @@ RUN apk update; \
       fcgi \
       shadow \
       linux-headers \
-      supervisor \
       postfix \
       pcre-dev ${PHPIZE_DEPS};
 
@@ -62,16 +61,6 @@ ARG GID
 ARG UNAME
 ARG GNAME
 RUN usermod -u ${UID} ${UNAME} && groupmod -g ${GID} ${GNAME}
-
-# Supervisord
-ARG SUPERVISORD_CONFIG_SOURCE
-ARG SUPERVISORD_CONFIG_TARGET
-ENV SUPERVISORD_CONFIG_SOURCE ${SUPERVISORD_CONFIG_SOURCE}
-ENV SUPERVISORD_CONFIG_TARGET ${SUPERVISORD_CONFIG_TARGET}
-COPY ${SUPERVISORD_CONFIG_SOURCE} ${SUPERVISORD_CONFIG_TARGET}
-
-RUN touch /var/run/supervisor.sock
-RUN chmod 777 /var/run/supervisor.sock
 
 ARG PHP_CODE_TARGET
 RUN mkdir -p ${PHP_CODE_TARGET}
