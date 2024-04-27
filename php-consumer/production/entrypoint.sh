@@ -10,3 +10,4 @@ if [ ! -d "vendor" ]; then
     composer install --no-interaction --optimize-autoloader
 fi
 
+supervisord -c /etc/supervisor/supervisord.conf
