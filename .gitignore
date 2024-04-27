@@ -7,6 +7,9 @@ php/production/.env
 php-cli/development/.env
 php-cli/production/.env
 
+php-consumer/development/.env
+php-consumer/production/.env
+
 nginx/development/.env
 nginx/production/.env
 

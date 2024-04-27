@@ -8,7 +8,7 @@ HELP_FUN = \
    		push@{$$help{$$2//'options'}},[$$1,$$3] \
     	if/^([\w-_]+)\s*:.*\#\#(?:@(\w+))?\s(.*)$$/ \
 	}; \
-    print"$$_:\n", map"  $$_->[0]".(" "x(30-length($$_->[0])))."$$_->[1]\n",\
+    print"$$_:\n", map"  $$_->[0]".(" "x(35-length($$_->[0])))."$$_->[1]\n",\
     @{$$help{$$_}},"\n" for keys %help; \
 
 help: ##@Miscellaneous Show this help
@@ -24,6 +24,8 @@ build-all: ##@General Build all containers
 	build-php-production
 	build-php-cli-development
 	build-ph-clip-production
+	build-php-consumer-development
+	build-ph-consumer-production
 	build-nginx-development
 	build-nginx-production
 	build-mysql-development
@@ -37,6 +39,8 @@ push-all: ##@General Push all containers
 	push-php-production
 	push-php-cli-development
 	push-php-cli-production
+	push-php-consumer-development
+	push-php-consumer-production
 	push-nginx-development
 	push-nginx-production
 	push-mysql-development
@@ -55,6 +59,12 @@ build-php-cli-development: ##@PHP Build PHP CLI development container
 
 build-php-cli-production: ##@PHP Build PHP CLI production container
 	docker compose -f php-cli/docker-compose.yml --env-file php-cli/production/.env build php-cli-production
+
+build-php-consumer-development: ##@PHP Build PHP Consmer development container
+	docker compose -f php-consumer/docker-compose.yml --env-file php-consumer/development/.env build php-consumer-development
+
+build-php-consumer-production: ##@PHP Build PHP Consmer production container
+	docker compose -f php-consumer/docker-compose.yml --env-file php-consumer/production/.env build php-consumer-production
 
 build-nginx-development: ##@NGINX Build NGINX development container
 	docker compose -f nginx/docker-compose.yml --env-file nginx/development/.env build nginx-development
@@ -80,11 +90,17 @@ run-php-development: ##@PHP Run PHP development container
 run-php-production: ##@PHP Run PHP production container
 	docker compose -f php/docker-compose.yml --env-file php/production/.env up php-production
 
-run-php-development: ##@PHP Run PHP CLI development container
+run-php-cli-development: ##@PHP Run PHP CLI development container
 	docker compose -f php-cli/docker-compose.yml --env-file php-cli/development/.env up php-cli-development
 
-run-php-production: ##@PHP Run PHP CLI production container
+run-php-cli-production: ##@PHP Run PHP CLI production container
 	docker compose -f php-cli/docker-compose.yml --env-file php-cli/production/.env up php-cli-production
+
+run-php-consumer-development: ##@PHP Run PHP Consumer development container
+	docker compose -f php-consumer/docker-compose.yml --env-file php-consumer/development/.env up php-consumer-development
+
+run-php-consumer-production: ##@PHP Run PHP Consumer production container
+	docker compose -f php-consumer/docker-compose.yml --env-file php-consumer/production/.env up php-consumer-production
 
 run-nginx-development: ##@NGINX Run NGINX development container
 	docker compose -f nginx/docker-compose.yml --env-file nginx/development/.env up nginx-development
@@ -115,6 +131,12 @@ push-php-cli-development: ##@PHP Push PHP CLI development container
 
 push-php-cli-production: ##@PHP Push PHP CLI production container
 	docker compose -f php-cli/docker-compose.yml --env-file php-cli/production/.env push php-cli-production
+
+push-php-consumer-development: ##@PHP Push PHP Consumer development container
+	docker compose -f php-consumer/docker-compose.yml --env-file php-consumer/development/.env push php-consumer-development
+
+push-php-consumer-production: ##@PHP Push PHP Consumer production container
+	docker compose -f php-consumer/docker-compose.yml --env-file php-consumer/production/.env push php-consumer-production
 
 push-nginx-development: ##@NGINX Push NGINX development container
 	docker compose -f nginx/docker-compose.yml --env-file nginx/development/.env push nginx-development
