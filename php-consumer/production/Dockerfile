@@ -91,5 +91,3 @@ ARG PHP_PORT
 EXPOSE ${PHP_PORT}
 
 ENTRYPOINT ["/entrypoint.sh"]
-
-CMD ["php", "-a"]
