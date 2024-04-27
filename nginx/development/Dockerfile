@@ -2,27 +2,40 @@ ARG NGINX_VERSION
 
 FROM nginx:${NGINX_VERSION}
 
-RUN apk update; \
-    apk upgrade; \
-    apk add bash;
+RUN apk update && \
+    apk upgrade && \
+    apk add bash
 
+# Copia los archivos de configuración de Nginx
 ARG NGINX_CONFIG_SOURCE
 ARG NGINX_CONFIG_TARGET
 COPY ${NGINX_CONFIG_SOURCE} ${NGINX_CONFIG_TARGET}
 
+# Copia los archivos de las páginas de Nginx
 ARG NGINX_PAGES_SOURCE
 ARG NGINX_PAGES_TARGET
 COPY ${NGINX_PAGES_SOURCE} ${NGINX_PAGES_TARGET}
 
+# Actualiza la configuración de Nginx para usar PHP-FPM
 ARG PHP_NAME
 ENV PHP_NAME=$PHP_NAME
 RUN sed -i "s/php:9000/$PHP_NAME:9000/g" ${NGINX_CONFIG_TARGET}
 
+# Copia los archivos de verificación de salud
 ARG NGINX_HEALTHCHECK_SOURCE
 ARG NGINX_HEALTHCHECK_TARGET
 COPY ${NGINX_HEALTHCHECK_SOURCE} ${NGINX_HEALTHCHECK_TARGET}
 
-HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
+# Agrega los certificados SSL
+ARG SSL_CERTIFICATE_SOURCE
+ARG SSL_CERTIFICATE_TARGET
+ARG SSL_CERTIFICATE_KEY_SOURCE
+ARG SSL_CERTIFICATE_KEY_TARGET
+COPY ${SSL_CERTIFICATE_SOURCE} ${SSL_CERTIFICATE_TARGET}
+COPY ${SSL_CERTIFICATE_KEY_SOURCE} ${SSL_CERTIFICATE_KEY_TARGET}
 
+# Agrega configuración para escuchar en el puerto 443 (SSL)
 ARG NGINX_HTTP_PORT
+ARG NGINX_HTTPS_PORT
 EXPOSE ${NGINX_HTTP_PORT}
+EXPOSE ${NGINX_HTTPS_PORT}
