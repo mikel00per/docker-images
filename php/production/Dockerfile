@@ -69,7 +69,6 @@ RUN usermod -u ${UID} ${UNAME} && groupmod -g ${GID} ${GNAME}
 ARG PHP_CODE_TARGET
 RUN mkdir -p ${PHP_CODE_TARGET}
 RUN chown ${UNAME}:${GNAME} -R ${PHP_CODE_TARGET}
-RUN chown ${UNAME}:${GNAME} -R ${SUPERVISORD_CONFIG_TARGET}
 
 WORKDIR ${PHP_CODE_TARGET}
 
@@ -82,9 +81,6 @@ COPY ${PHP_ENTRYPOINT_SOURCE} ${PHP_ENTRYPOINT_TARGET}
 HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
 
 USER www-data
-
-CMD ["supervisord", "-c", "${SUPERVISORD_CONFIG_TARGET}"]
-CMD ["supervisorctl", "-c", "${SUPERVISORD_CONFIG_TARGET}"]
 
 ARG PHP_PORT
 EXPOSE ${PHP_PORT}
