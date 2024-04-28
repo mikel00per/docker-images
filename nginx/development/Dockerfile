@@ -4,7 +4,7 @@ FROM nginx:${NGINX_VERSION}
 
 RUN apk update && \
     apk upgrade && \
-    apk add bash
+    apk add bash;
 
 # Copia los archivos de configuración de Nginx
 ARG NGINX_CONFIG_SOURCE
@@ -15,11 +15,6 @@ COPY ${NGINX_CONFIG_SOURCE} ${NGINX_CONFIG_TARGET}
 ARG NGINX_PAGES_SOURCE
 ARG NGINX_PAGES_TARGET
 COPY ${NGINX_PAGES_SOURCE} ${NGINX_PAGES_TARGET}
-
-# Actualiza la configuración de Nginx para usar PHP-FPM
-ARG PHP_NAME
-ENV PHP_NAME=$PHP_NAME
-RUN sed -i "s/php:9000/$PHP_NAME:9000/g" ${NGINX_CONFIG_TARGET}
 
 # Copia los archivos de verificación de salud
 ARG NGINX_HEALTHCHECK_SOURCE
