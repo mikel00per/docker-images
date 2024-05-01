@@ -23,9 +23,9 @@ build-all: ##@General Build all containers
 	build-php-development
 	build-php-production
 	build-php-cli-development
-	build-ph-clip-production
+	build-php-cli-production
 	build-php-consumer-development
-	build-ph-consumer-production
+	build-php-consumer-production
 	build-nginx-development
 	build-nginx-production
 	build-mysql-development
