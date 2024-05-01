@@ -1,4 +1,4 @@
-name: Deploy PHP Containers
+name: Deploy PHP Consumer Containers
 
 on:
   push:

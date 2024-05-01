@@ -1,4 +1,4 @@
-name: Deploy PHP Containers
+name: Deploy PHP CLI Containers
 
 on:
   push:
