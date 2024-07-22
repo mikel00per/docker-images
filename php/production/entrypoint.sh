@@ -6,7 +6,6 @@ fi
 
 if [ ! -d "vendor" ]; then
     composer install --no-interaction --optimize-autoloader
-    touch /tmp/composer_install_done
 fi
 
 php-fpm -F -R
