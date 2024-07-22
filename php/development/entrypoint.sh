@@ -5,6 +5,7 @@ if [ -f ".env.build" ]; then
 fi
 
 if [ ! -d "vendor" ]; then
+    echo "Composer packages have been installed."
     composer install --no-interaction --optimize-autoloader
 fi
 
