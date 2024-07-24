@@ -76,6 +76,8 @@ COPY ${PHP_ENTRYPOINT_SOURCE} ${PHP_ENTRYPOINT_TARGET}
 
 HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
 
+USER www-data
+
 ARG PHP_PORT
 EXPOSE ${PHP_PORT}
 
