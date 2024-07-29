@@ -32,6 +32,8 @@ build-all: ##@General Build all containers
 	build-mysql-production
 	build-node-development
 	build-node-production
+	build-rabbitmq-development
+	build-rabbitmq-production
 
 push-all: ##@General Push all containers
 	build-all
@@ -47,6 +49,8 @@ push-all: ##@General Push all containers
 	push-mysql-production
 	push-node-development
 	push-node-production
+	push-rabbitmq-development
+	push-rabbitmq-production
 
 build-php-development: ##@PHP Build PHP development container
 	docker compose -f php/docker-compose.yml --env-file php/development/.env build php-development
@@ -81,8 +85,11 @@ build-node-development: ##@Node Build Node development container
 build-node-production: ##@Node Build Node production container
 	docker compose -f node/docker-compose.yml --env-file node/production/.env build node-production
 
-build-mysql-production: ##@MySQL Build MySQL production container
-	docker compose -f mysql/docker-compose.yml --env-file mysql/production/.env build mysql-production
+build-rabbitmq-development: ##@RabbitMq Build RabbitMq development container
+	docker compose -f rabbitmq/docker-compose.yml --env-file rabbitmq/development/.env build --no-cache rabbitmq-development
+
+build-rabbitmq-production: ##@RabbitMq Build RabbitMq production container
+	docker compose -f rabbitmq/docker-compose.yml --env-file rabbitmq/production/.env build --no-cache rabbitmq-production
 
 run-php-development: ##@PHP Run PHP development container
 	docker compose -f php/docker-compose.yml --env-file php/development/.env up php-development
@@ -120,6 +127,12 @@ run-node-development: ##@Node Run Node development container
 run-node-production: ##@Node Run Node production container
 	docker compose -f node/docker-compose.yml --env-file node/production/.env up node-production
 
+run-rabbitmq-development: ##@RabbitMq Run RabbitMq development container
+	docker compose -f rabbitmq/docker-compose.yml --env-file rabbitmq/development/.env up  rabbitmq-development
+
+run-rabbitmq-production: ##@RabbitMq Run RabbitMq production container
+	docker compose -f rabbitmq/docker-compose.yml --env-file rabbitmq/production/.env up rabbitmq-production
+
 push-php-development: ##@PHP Push PHP development container
 	docker compose -f php/docker-compose.yml --env-file php/development/.env push php-development
 
@@ -155,3 +168,9 @@ push-node-development: ##@Node Push Node development container
 
 push-node-production: ##@Node Push Node production container
 	docker compose -f node/docker-compose.yml --env-file node/production/.env push node-production
+
+push-rabbitmq-development: ##@RabbitMq Push RabbitMq development container
+	docker compose -f rabbitmq/docker-compose.yml --env-file rabbitmq/development/.env push rabbitmq-development
+
+push-rabbitmq-production: ##@RabbitMq Push RabbitMq production container
+	docker compose -f rabbitmq/docker-compose.yml --env-file rabbitmq/production/.env push rabbitmq-production

@@ -57,3 +57,13 @@ if ! test -f "node/production/.env"; then
   echo "Copy node/production/.env"
   cp node/production/.env.example node/production/.env
 fi
+
+if ! test -f "rabbitmq/development/.env"; then
+  echo "Copy rabbitmq/development/.env"
+  cp rabbitmq/development/.env.example rabbitmq/development/.env
+fi
+
+if ! test -f "rabbitmq/production/.env"; then
+  echo "Copy rabbitmq/production/.env"
+  cp rabbitmq/production/.env.example rabbitmq/production/.env
+fi

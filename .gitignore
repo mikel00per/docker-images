@@ -18,3 +18,6 @@ mysql/production/.env
 
 node/development/.env
 node/production/.env
+
+rabbitmq/development/.env
+rabbitmq/production/.env
